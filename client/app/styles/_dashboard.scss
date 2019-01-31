@@ -1,0 +1,85 @@
+.welcome{
+	  color: #fff;
+    padding: 25px;
+    font-family: GlacialIndifference-Regular;
+    font-size: 19px;
+    height: 79px;
+}
+
+.left-menu{
+  ul.option-list{
+    list-style: none;
+    li.option-list{
+      height: 50px;
+      font-family: 'GlacialIndifference-Regular';
+      font-size: 15px;
+      border-top: 1px solid #282747;
+      border-bottom: 1px solid #282747;
+      text-align: left;
+      padding: 0 12px;
+      line-height: 50px;
+      color: #fff;
+      cursor: pointer;
+    }
+    li.option-list.active{
+    	background: #fff;
+      	border-top: 1px solid #fff;
+      	border-bottom: 1px solid #fff;
+      	color: #282747;
+    }
+  }
+}
+
+.card{
+  font-family: 'GlacialIndifference-Regular';
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #f5f5f5;
+  padding: 5px;
+}
+
+.card > .details{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
+  margin-left: 12px;
+  position: relative;
+}
+
+.card > .image{
+  width: 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card > .image > i{
+  font-size: 33px !important;  
+}
+
+.card > .details > .mobile{
+  font-size: 17px;
+  text-align: left;
+}
+
+.card > .details > .location{
+  font-size: 13px;
+  text-align: left;
+}
+
+.card > .details > .timestamp{
+  text-align: right;
+  fonts-size: 11px;
+}
+
+.card > .details > .send{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+}
+
+.card > .details > .send >   i{
+    font-size: 25px !important;
+    cursor: pointer;
+  }

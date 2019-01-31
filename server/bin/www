@@ -1,0 +1,121 @@
+/**
+ * Module dependencies.
+ */
+console.log(" [*] Starting Store Promotions Application")
+var app = require('../server');
+var debug = require('debug')('StorePromotions:server');
+var http = require('http');
+var express = require('express');
+const https = require('https');
+const fs = require('fs');
+var mysqlOps = require('../store/mysqlOps');
+
+var websocketCQ = require('../store/websocketServer');
+var exec = require('child_process').exec;
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.BACKEND_PORT);
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+// var server = https.createServer(options,app);
+var server = http.createServer(app);
+
+var redisadapter = require('socket.io-redis');
+
+var socketapp = express()
+var wsServer = http.createServer(socketapp)
+wsServer.listen(process.env.SOCKET_PORT)
+wsServer.on('listening', onSocketListening)
+wsServer.on('error', onError)
+
+var io = require('socket.io')(wsServer, {'path': '/socket', 'pingInterval': 30000, 'pingTimeout': 5000})
+io.adapter(redisadapter({ host: process.env.REDIS_HOST, port: process.env.REDIS_PORT }));
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+function restartInstance(command, callback){
+    /*exec(command, function(error, stdout, stderr){ callback(stdout); });*/
+}
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+mysqlOps.createDatabase()
+websocketCQ.startSocketServer(io)
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onSocketListening() {
+  var addr = wsServer.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  console.log(' [*] Socket Server Listening on ' + bind);
+}
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  console.log(' [*] HTTP Server Listening on ' + bind);
+}
+
+module.exports = server

@@ -1,0 +1,59 @@
+<div class="container">
+	<div class="ui-container">
+		<div class="left-side">
+			<div class="welcome">
+				<div>Welcome <span style="text-transform: uppercase;">{{name}}</span>,</div>
+				<div>Credits: {{Sync.userDetails.credits}}</div>
+				<div class="btn-container" style="text-align: right;">
+					<div class="btn signin"
+						ng-click="adminLogout()">Log Out</div>
+				</div>
+			</div>
+			<div class="left-menu">
+				<ul class="option-list">
+					<li class="option-list" ng-repeat="option in upload_options" ng-class="{'active': option.selected}" ng-click="selectOption($index)">{{option.name}}</li>
+				</ul>
+			</div>
+		</div>
+		<div class="right-side">
+			<div class="upload-container">
+				<div class="upload">
+					<div class="upload-files">
+				  	<header>
+					   	<p>
+						    <i class="fa fa-location-arrow" aria-hidden="true"></i>
+						    <span class="up">loc</span>
+						    <span class="load">ation</span>
+					   	</p>
+				  	</header>
+				  	<div class="body" id="drop" ng-if="Sync.all_locations.length == 0">
+					   	<i class="fa fa-file-text-o pointer-none" aria-hidden="true"></i>
+					   	<p class="pointer-none"><b>No Location History</b></p>
+				  	</div>
+				  	<div class="body" style="padding: 12px;overflow-y: scroll;height: 231px;" ng-if="Sync.all_locations.length > 0">
+				  		<div class="card" ng-repeat="loc in Sync.all_locations">
+				  			<div class="image"><i class="fa fa-map-pin"></i></div>
+				  			<div class="details">
+				  				<div class="mobile">{{loc.mobile}}</div>
+				  				<div class="location">{{loc.latitude}},{{loc.longitude}}</div>
+				  				<div class="timestamp">
+				  					<span data-livestamp="{{loc.timestamp}}"></span>
+				  				</div>
+				  				<div class="send">
+				  					<i class="fa fa-share-square" ng-click="sendMessage($index)"></i>
+				  				</div>
+				  			</div>
+				  		</div>
+				  	</div>
+					  	<footer>
+						   <div class="divider">
+						   </div>
+						   <div class="list-files">
+						   </div>
+					  	</footer>
+				 	</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

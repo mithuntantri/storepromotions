@@ -1,0 +1,90 @@
+<div class="container">
+	<div class="ui-container">
+		<div ng-if="showSignUp">
+			<div class="username-container">
+				<div class="binput">
+					<input type="text" class="username" ng-model="register.store_name" maxlength="32" 
+					placeholder="Store Name">
+				</div>
+			</div>
+			<div class="username-container">
+				<div class="binput">
+					<input type="email" class="username" ng-model="register.email" 
+					maxlength="32" 
+					placeholder="Email Address">
+				</div>
+			</div>
+			<div class="username-container">
+				<div class="binput">
+					<input type="number" class="username" 
+					maxlength="10" 
+					ng-model="register.mobile" placeholder="Mobile Number">
+				</div>
+			</div>
+			<div class="username-container">
+				<div class="binput">
+					<input type="text" class="username" 
+					maxlength="32" 
+					ng-model="register.username" placeholder="Select Username">
+				</div>
+			</div>
+			<div class="password-container">
+				<div class="binput">
+					<input type="password" ng-model="register.password" 
+					maxlength="32" 
+					placeholder="SELECT PASSWORD">
+				</div>
+			</div>
+		</div>
+		<div ng-if="!showSignUp">
+			<div class="username-container">
+				<div class="binput">
+					<input type="text" class="username" ng-model="login.username" 
+					maxlength="32" 
+					placeholder="Enter Username">
+				</div>
+			</div>
+			<div class="password-container">
+				<div class="binput">
+					<input type="password" ng-model="login.password" 
+					maxlength="32" 
+					placeholder="ENTER PASSWORD">
+				</div>
+			</div>
+		</div>
+		<div class="right-side">
+			<div class="login-container" ng-if="!showSignUp">
+				<form>
+					<div class="errorMessage">
+						<span ng-if="errorMessage">**{{errorMessage}}</span>
+					</div>
+
+					<div class="loader-container" ng-if="Login.loggingIn">
+						<div class="Spinner"></div>
+					</div>
+					<div class="btn-container">
+						<input class="btn signin" type="submit" value="SIGN IN"
+							ng-click="adminLogin()"/>
+					</div>
+					<div class="forgot-pw" ng-click="showRegister()">Register your Store? SIGN UP</div>
+				</form>
+			</div>
+			<div class="login-container" ng-if="showSignUp">
+				<form>
+					<div class="errorMessage">
+						<span ng-if="errorMessage">**{{errorMessage}}</span>
+					</div>
+
+					<div class="loader-container" ng-if="Login.registering">
+						<div class="Spinner"></div>
+					</div>
+					<div class="btn-container">
+						<input class="btn signin" type="submit" value="SIGN UP"
+							ng-click="adminRegister()"/>
+					</div>
+					<div class="forgot-pw" ng-click="showLogin()">Already Registered? SIGN IN</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
